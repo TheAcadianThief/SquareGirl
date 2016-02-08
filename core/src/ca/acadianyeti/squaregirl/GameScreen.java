@@ -15,13 +15,15 @@ import javax.xml.soap.Text;
 public class GameScreen implements Screen
 {
     //Represens how far off the anchor the currtouch can go
-    private final int ANCHOR_BOUNDS = 10;
+    private final int ANCHOR_BOUNDS = 15;
 
 
 
+    //When we touch down, this is true, else it is false
+    private boolean justTouched;
     private Vector3 currTouch, anchor;
     final SquareGirl mainGame;
-    private Sprite mainChar;
+    private TheSquareGirl mainChar;
     public GameScreen(final SquareGirl mainGame)
     {
         currTouch = new Vector3(0, 0, 1);
@@ -30,7 +32,7 @@ public class GameScreen implements Screen
         //Setup our mainCharacter
         TextureRegion[] frames = new TextureRegion[1];
         frames[0] = new TextureRegion(mainGame.img);
-        mainChar = new Sprite(frames, 50, 50, 200, 200);
+        mainChar = new TheSquareGirl(frames, 200, 200);
     }
 
 
@@ -38,20 +40,34 @@ public class GameScreen implements Screen
     public void render(float delta)
     {
 
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0.5f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //First portion is for anchoring, use justTouched
         if(Gdx.input.justTouched())
         {
+            justTouched = true;
             anchor.set(Gdx.input.getX(),Gdx.input.getY() ,0);
+            //Should also set currTouch to be the anchor
+            currTouch.set(anchor.x, anchor.y, 0);
             mainGame.mainCamera.unproject(anchor);
             mainChar.anchorSet(anchor);
+
         }
         else if(Gdx.input.isTouched())
         {
             currTouch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             mainGame.mainCamera.unproject(currTouch);
+            boundTouch(currTouch);
             mainChar.update(currTouch);
+        }
+        else
+        {
+            if(justTouched)
+            {
+                justTouched= !justTouched;
+            }
+            //Do this to prevent us updating anchor
+            anchor.z = 1;
         }
         //Upadte main char
         //Based off anchor move the image
@@ -73,6 +89,24 @@ public class GameScreen implements Screen
      */
     public void boundTouch(Vector3 currTouch)
     {
+        //Deal with the x
+        if(currTouch.x - anchor.x > ANCHOR_BOUNDS)
+        {
+            currTouch.x = anchor.x + ANCHOR_BOUNDS;
+        }
+        else if(anchor.x - currTouch.x > ANCHOR_BOUNDS)
+        {
+            currTouch.x = anchor.x - ANCHOR_BOUNDS;
+        }
+        //Deal with the y
+        if(currTouch.y - anchor.y > ANCHOR_BOUNDS)
+        {
+            currTouch.y = anchor.y + ANCHOR_BOUNDS;
+        }
+        else if(anchor.y - currTouch.y > ANCHOR_BOUNDS)
+        {
+            currTouch.y = anchor.y - ANCHOR_BOUNDS;
+        }
 
     }
 
