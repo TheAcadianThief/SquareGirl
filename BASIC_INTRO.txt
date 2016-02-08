@@ -1,3 +1,5 @@
 Hey Nikita!  If you want to get the general structure of the game platform, things like functionality of the gaming and such this seems
 to be a great tutorial
 https://github.com/libgdx/libgdx/wiki/A-simple-game
+Also important, API of the entire library
+s://libgdx.badlogicgames.com/nightlies/docs/api/
