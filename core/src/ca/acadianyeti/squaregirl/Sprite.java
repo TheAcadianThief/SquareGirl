@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.*;
 
 /**
  * Created by patty on 07/02/16.
@@ -13,9 +15,12 @@ public class Sprite
 {
     Animation frames;
     private final float DELAY = 0.5f, MOVE_TOLERANCE = 0.1f;
-    private final float X_SPEED = 3f, Y_SPEED = 1f;
+    private final float X_SPEED =50f, Y_SPEED = 1f;
+    protected Body body;
+    private double xVel = 0.0, yVel = 0.0;
     private Vector3 anchor = null;
-    private  int width, height, xPos, yPos;
+    private  int width, height;
+    private float xPos, yPos;
     public Sprite(TextureRegion[] frames, int width, int height, int xPos, int yPos)
     {
         this.frames = new Animation(DELAY, frames);
@@ -45,6 +50,13 @@ public class Sprite
         this.anchor = anchor;
     }
 
+
+    public void update()
+    {
+        //Just updates our character depending on the physics engine
+        xPos = body.getPosition().x;
+        yPos = body.getPosition().y;
+    }
     /**
      * Update method, takes a vector2 of the new touch
      */
@@ -57,18 +69,24 @@ public class Sprite
             float x = lastTouch.x - anchor.x;
             if (x < 0.0f)
             {
-
-                xPos -= X_SPEED;
+                body.setLinearVelocity(new Vector2(-X_SPEED, body.getLinearVelocity().y));
             }
             else if(x > 0.0f)
             {
 
-                xPos += X_SPEED;
+                body.setLinearVelocity(new Vector2(X_SPEED, body.getLinearVelocity().y));
             }
         }
     }
 
 
+    /**
+     * Add force method, adds a force in a given direction
+     */
+    public void addForce(double xForce, double yForce)
+    {
+
+    }
 
     /**
      * Dispose method

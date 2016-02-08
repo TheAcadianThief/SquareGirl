@@ -32,14 +32,15 @@ public class GameScreen implements Screen
         //Setup our mainCharacter
         TextureRegion[] frames = new TextureRegion[1];
         frames[0] = new TextureRegion(mainGame.img);
-        mainChar = new TheSquareGirl(frames, 200, 200);
+        mainChar = new TheSquareGirl(frames, 10, 10, mainGame.gameWorld);
     }
 
 
     @Override
     public void render(float delta)
     {
-
+        //Update main char
+        mainChar.update();
         Gdx.gl.glClearColor(0, 0.5f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //First portion is for anchoring, use justTouched
