@@ -14,6 +14,10 @@ import javax.xml.soap.Text;
  */
 public class GameScreen implements Screen
 {
+    //Represens how far off the anchor the currtouch can go
+    private final int ANCHOR_BOUNDS = 10;
+
+
 
     private Vector3 currTouch, anchor;
     final SquareGirl mainGame;
@@ -53,11 +57,24 @@ public class GameScreen implements Screen
         //Based off anchor move the image
         //Go ahead and find out the touches, based on that move the character
         mainGame.batch.begin();
+        //Draw the joystick first
+        if(anchor.z != 1)
+        {
+            mainGame.batch.draw(mainGame.joyStick, currTouch.x - 25, currTouch.y - 25, 50, 50);
+        }
         mainChar.drawSprite(mainGame.batch, delta);
         mainGame.batch.end();
     }
 
 
+    /**
+     * Method to bound a touch by where the anchor is
+     * @param currTouch
+     */
+    public void boundTouch(Vector3 currTouch)
+    {
+
+    }
 
 
 

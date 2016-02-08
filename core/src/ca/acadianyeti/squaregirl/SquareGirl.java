@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SquareGirl extends Game {
 	SpriteBatch batch;
-	Texture img;
+	Texture img, joyStick;
 	BitmapFont font;
 	OrthographicCamera mainCamera;
 	
@@ -22,6 +22,7 @@ public class SquareGirl extends Game {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		img = new Texture("SquareGirl/SQUARE_GIRL_IDLE.png");
+		joyStick = new Texture("GeneralAssets/JOY_STICK.png");
 		this.setScreen(new MainMenuScreen(this));
 	}
 
