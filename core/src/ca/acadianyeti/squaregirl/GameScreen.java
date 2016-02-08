@@ -39,7 +39,6 @@ public class GameScreen implements Screen
         //First portion is for anchoring, use justTouched
         if(Gdx.input.justTouched())
         {
-            System.out.println("Thought this just happened once");
             anchor.set(Gdx.input.getX(),Gdx.input.getY() ,0);
             mainGame.mainCamera.unproject(anchor);
             mainChar.anchorSet(anchor);

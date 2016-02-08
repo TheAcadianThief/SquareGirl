@@ -13,7 +13,7 @@ public class Sprite
 {
     Animation frames;
     private final float DELAY = 0.5f;
-    private final float X_SPEED = 0.5f, Y_SPEED = 0.5f;
+    private final float X_SPEED = 1f, Y_SPEED = 1f;
     private Vector3 anchor = null;
     private  int width, height, xPos, yPos;
     public Sprite(TextureRegion[] frames, int width, int height, int xPos, int yPos)
@@ -58,10 +58,12 @@ public class Sprite
             float y = lastTouch.y - anchor.y;
             if (x <= 0.0f)
             {
+
                 xPos -= X_SPEED;
             }
             else
             {
+
                 xPos += X_SPEED;
             }
 
