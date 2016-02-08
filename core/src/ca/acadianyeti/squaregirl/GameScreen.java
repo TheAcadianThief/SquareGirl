@@ -45,20 +45,35 @@ public class GameScreen implements Screen
         //First portion is for anchoring, use justTouched
         if(Gdx.input.justTouched())
         {
-            justTouched = true;
-            anchor.set(Gdx.input.getX(),Gdx.input.getY() ,0);
-            //Should also set currTouch to be the anchor
-            currTouch.set(anchor.x, anchor.y, 0);
-            mainGame.mainCamera.unproject(anchor);
-            mainChar.anchorSet(anchor);
+            //On right side of screen, move
+            if(Gdx.input.getX() >= Gdx.graphics.getWidth()/2)
+            {
+                justTouched = true;
+                anchor.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+                //Should also set currTouch to be the anchor
+                currTouch.set(anchor.x, anchor.y, 0);
+                mainGame.mainCamera.unproject(anchor);
+                mainChar.anchorSet(anchor);
+            }
+            else
+            {
+                mainChar.jump();
+            }
 
         }
         else if(Gdx.input.isTouched())
         {
-            currTouch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            mainGame.mainCamera.unproject(currTouch);
-            boundTouch(currTouch);
-            mainChar.update(currTouch);
+            if(Gdx.input.getX() >= Gdx.graphics.getWidth()/2 && anchor.z != 1)
+            {
+                currTouch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+                mainGame.mainCamera.unproject(currTouch);
+                boundTouch(currTouch);
+                mainChar.update(currTouch);
+            }
+            else
+            {
+
+            }
         }
         else
         {

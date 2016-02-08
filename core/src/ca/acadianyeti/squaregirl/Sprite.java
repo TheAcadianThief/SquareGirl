@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 public class Sprite
 {
     Animation frames;
-    private final float DELAY = 0.5f;
+    private final float DELAY = 0.5f, MOVE_TOLERANCE = 0.1f;
     private final float X_SPEED = 3f, Y_SPEED = 1f;
     private Vector3 anchor = null;
     private  int width, height, xPos, yPos;
@@ -55,12 +55,12 @@ public class Sprite
         if(anchor != null)
         {
             float x = lastTouch.x - anchor.x;
-            if (x <= 0.0f)
+            if (x < 0.0f)
             {
 
                 xPos -= X_SPEED;
             }
-            else
+            else if(x > 0.0f)
             {
 
                 xPos += X_SPEED;

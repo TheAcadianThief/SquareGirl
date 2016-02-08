@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class TheSquareGirl extends Sprite
 {
+    private boolean jumping;
     private static final int WIDTH = 30, HEIGHT = 30;
     public TheSquareGirl(TextureRegion[] frames, int xPos, int yPos)
     {
@@ -15,11 +16,13 @@ public class TheSquareGirl extends Sprite
     }
 
 
-
-
+    /**
+     * Jump method, commences jump
+     */
     public void jump()
     {
-
+        jumping =true;
+        System.out.println("Jumping currently");
     }
 
 
